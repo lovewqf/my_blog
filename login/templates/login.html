@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户登录</title>
+    <link rel="stylesheet" href="{%static 'css/login.css'%}">
+</head>
+<body>
+<form>
+    <div class="user">用户名: <input type="text" name="user"></div>
+    <div class="pass"><span style="letter-spacing: 1em">密</span>码:<input type="password" name="passwd"></div>
+    <div><input type="submit" value="登录"></div>
+    <div><a href="{%url 's_regist' %}">新用户注册</a> </div>
+</form>
+</body>
+<script src="{%static 'js/jquery.min.js' %}"></script>
+<script src="{%static 'js/csrf.js'%}"></script>
+<script type="text/javascript">
+    $('input[type="submit"]').on('click',function (event) {
+        event.preventDefault();
+        let paras = $('form').serialize();
+        create_csrf();
+        $.ajax({
+            url:'{%url "l_account"%}',
+            type:'post',
+            data:paras,
+            success:function (res) {
+                res = JSON.parse(res);
+                console.log(res)
+                if(res.code==200){
+                    window.location.href = "{%url 'index'%}"
+                };
+                if(res.code==400){
+                    alert(res.infor);
+                }
+                if(res.code==300){
+                    alert(res.infor)
+                }
+            }
+        })
+    })
+</script>
+</html>
