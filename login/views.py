@@ -51,5 +51,8 @@ def regist_user(request):
         msg = {'code':200,'infor':'账号注册成功'}
     else:
         # User.objects.all().first().delete()
+        request.session['username'] = user
+        # del request.session['username']
+        print(request.session.get('username'))
         msg = {'code':400,'infor':'该账号已存在'}
     return HttpResponse(json.dumps(msg))
