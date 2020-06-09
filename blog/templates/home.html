@@ -26,13 +26,15 @@
     <title>title</title>
 </head>
 <body>
-<form>
-    <div>用户名:
-        <input type="text" name="user">
-    </div>
-    <div>密码: <input type="text" name="passwd"></div>
-    <div><input type="submit" value="登录"></div>
-</form>
+{{ request.user }}
+<br>
+{{ request.path  }}
+{% if name %}
+    <h2>年龄:{{ age }}</h2>
+{% else %}
+    <h2>nianling:{{ name }}</h2>
+{% endif %}
+<h3>{{ name }}</h3>
 </body>
 <script type="text/javascript">
 

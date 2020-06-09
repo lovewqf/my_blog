@@ -37,7 +37,7 @@
         }
         .right{
             display: inline-block;
-            width: 1000px;
+            {#width: 1000px;#}
             background-color: aquamarine;
             margin-left: 50px;
             {#text-align: center;#}
@@ -73,9 +73,17 @@
         <div class="mid">
             <div class="left">
             <h3>博客类别</h3>
+                {% for cagatory in infor %}
+                    <h3>{{ cagatory }}</h3>
+                    <br>
+                {% endfor %}
             </div>
             <div class="right">
             <h3>博客正文</h3>
+                {% for content in content %}
+                    {{ content }}
+                    <br>
+                {% endfor %}
             </div>
         </div>
         <div class="tail">
@@ -87,25 +95,25 @@
 <script src="{%static 'js/jquery.min.js' %}"></script>
 <script src="{%static 'js/csrf.js'%}"></script>
 <script type="text/javascript">
-    paras = 'account=lcyin';
-    create_csrf();
-    $.ajax({
-        url:'{%url "show_r"%}',
-        type:'post',
-        data:paras,
-        success:function (res) {
-            res = JSON.parse(res);
-            console.log(res.infor);
-            console.log(res.content[0]);
-            if (res.code == 200){
-                for(let num = 0; num < res.infor.length;num++){
-                    $('.left').append('<a href="https://www.baidu.com">0</a></br>'.replace(0,res.infor[num]));
-                }
-                for(let n = 0; n<res.content.length; n++){
-                    $('.right').append('<span>1</span></br>'.replace(1,res.content[n]));
-                }
-            }
-        }
-    })
+    {#paras = 'account=lcyin';#}
+    {#create_csrf();#}
+    {#$.ajax({#}
+    {#    url:'{%url "show_r"%}',#}
+    {#    type:'post',#}
+    {#    data:paras,#}
+    {#    success:function (res) {#}
+    {#        res = JSON.parse(res);#}
+    {#        console.log(res.infor);#}
+    {#        console.log(res.content[0]);#}
+    {#        if (res.code == 200){#}
+    {#            for(let num = 0; num < res.infor.length;num++){#}
+    {#                $('.left').append('<a href="https://www.baidu.com">0</a></br>'.replace(0,res.infor[num]));#}
+    {#            }#}
+    {#            for(let n = 0; n<res.content.length; n++){#}
+    {#                $('.right').append('<span>1</span></br>'.replace(1,res.content[n]));#}
+    {#            }#}
+    {#        }#}
+    {#    }#}
+    {#})#}
 </script>
 </html>

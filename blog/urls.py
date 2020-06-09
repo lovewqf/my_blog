@@ -19,5 +19,5 @@ from . import views
 urlpatterns = [
     path('index/',views.show_index,name='index'),
     path('show_request/',views.show_request,name='show_r'),
-
+    path('show_home/',views.show_home,name='s_home'),
 ]
