@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import redirect
+from django.http import HttpResponse,HttpResponseRedirect,JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import *
 import json
@@ -25,6 +26,7 @@ def login_user(request):
     print(obj)
     if obj:
         if obj.password == passwd:
+            request.session[account] = account
             msg = {'code': 200, 'infor': 'login success'}
         else:
             msg = {'code': 400, 'infor': 'password failed'}
@@ -51,8 +53,9 @@ def regist_user(request):
         msg = {'code':200,'infor':'账号注册成功'}
     else:
         # User.objects.all().first().delete()
-        request.session['username'] = user
+        # request.session['username'] = user
         # del request.session['username']
-        print(request.session.get('username'))
+        # print(request.session.clear())
+        print(request.session.keys())
         msg = {'code':400,'infor':'该账号已存在'}
     return HttpResponse(json.dumps(msg))
