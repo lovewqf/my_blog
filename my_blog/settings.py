@@ -39,9 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'login',
-    # 'xadmin',
-    # 'crispy_forms',
-    # 'reversion',
+    'xadmin',
+    'crispy_forms',
+    'reversion',
+    'django.conf',
 ]
 
 MIDDLEWARE = [

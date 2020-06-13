@@ -35,16 +35,29 @@
         .left h3{
             margin-bottom: 10px;
         }
-        .right{
+        .left h3 a{
+            margin: auto auto;
+        }
+        .center{
             display: inline-block;
-            {#width: 1000px;#}
+            width: 850px;
             background-color: aquamarine;
             margin-left: 50px;
             {#text-align: center;#}
         }
-        .right h3{
+        .center h3{
+            text-align: center;
             margin: 10px auto;
         }
+        .center a{
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .right{
+            display: inline-block;
+            width: 50px;
+            background-color: black;
+         }
         .tail{
             text-align: center;
             margin-top: 50px;
@@ -74,46 +87,41 @@
             <div class="left">
             <h3>博客类别</h3>
                 {% for cagatory in infor %}
-                    <h3>{{ cagatory }}</h3>
+                    <h3><a href="#">{{ cagatory }}</a></h3>
+                {% endfor %}
+            </div>
+            <div class="center">
+            <h3>博客正文</h3>
+                {% for text in content %}
+                    <a href="#">{{ text }}</a>
                     <br>
                 {% endfor %}
             </div>
             <div class="right">
-            <h3>博客正文</h3>
-                {% for content in content %}
-                    {{ content }}
-                    <br>
-                {% endfor %}
+                <a href="">测试</a>
             </div>
-        </div>
         <div class="tail">
             <span>版权</span><span>联系</span><span>github</span><span>客服</span>
         </div>
     </div>
-
+    </div>
 </body>
 <script src="{%static 'js/jquery.min.js' %}"></script>
 <script src="{%static 'js/csrf.js'%}"></script>
 <script type="text/javascript">
-    {#paras = 'account=lcyin';#}
-    {#create_csrf();#}
-    {#$.ajax({#}
-    {#    url:'{%url "show_r"%}',#}
-    {#    type:'post',#}
-    {#    data:paras,#}
-    {#    success:function (res) {#}
-    {#        res = JSON.parse(res);#}
-    {#        console.log(res.infor);#}
-    {#        console.log(res.content[0]);#}
-    {#        if (res.code == 200){#}
-    {#            for(let num = 0; num < res.infor.length;num++){#}
-    {#                $('.left').append('<a href="https://www.baidu.com">0</a></br>'.replace(0,res.infor[num]));#}
-    {#            }#}
-    {#            for(let n = 0; n<res.content.length; n++){#}
-    {#                $('.right').append('<span>1</span></br>'.replace(1,res.content[n]));#}
-    {#            }#}
-    {#        }#}
-    {#    }#}
-    {#})#}
+    $('.left a').on('click',function () {
+        data = 'cagatory=0'.replace(0,$(this).text());
+        create_csrf();
+        $.ajax({
+           url:'{%url "s_c_blog" %}',
+           type:'post',
+           data:data,
+           success:function (res) {
+               res = JSON.parse(res);
+               console.log(res);
+               window.location.href = '{%url "s_c_detail" %}'
+           }
+        });
+    })
 </script>
 </html>

@@ -19,9 +19,10 @@ def show_index(request):
     msg = {'code':200,'infor':cagatory_list,'content':blog_list}
     return render(request,'index.html',msg)
 
-def show_home(request):
-    l = {'name':'lcyin'}
-    return render(request,'home.html',l)
+def show_cagatory_detail(request):
+    return render(request,'blog/cagatory.html')
+
+
 
 @csrf_exempt
 def show_request(request):
@@ -38,6 +39,14 @@ def show_request(request):
     msg = {'code':200,'infor':cagatory_list,'content':blog_list}
     return HttpResponse(json.dumps(msg))
 
+
+
 @csrf_exempt
 def show_cagatory_blog(request):
-    pass
+    cagatory = request.POST.get('cagatory')
+    results = Catagory.objects.filter(catagory_name=cagatory).first().blog_set.all()
+    content_list = []
+    for result in results:
+        content_list.append(result.content)
+    msg = {'code':200,'infor':content_list}
+    return HttpResponse(json.dumps(msg))
